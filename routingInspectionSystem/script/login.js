@@ -44,6 +44,7 @@ apiready = function() {
     var showingFailMessage = false;
     var alerts = true;
     var checkrefresh = 0;
+    var notGPS = false;
 
     var startlbsPO = function(ms, ms2, userid) {
         // aMapLBS.configManager({
@@ -121,11 +122,17 @@ apiready = function() {
                 showMarker: false, //定位成功后在定位到的位置显示点标记，默认：true
                 showCircle: false, //定位成功后用圆圈表示定位精度范围，默认：true
                 panToLocation: false, //定位成功后将定位到的位置作为地图中心点，默认：true
-                zoomToAccuracy: false, //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
-                useNative: false
+                zoomToAccuracy: false //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
             });
             mapObj.addControl(geolocation);
             AMap.event.addListener(geolocation, 'complete', function(data) {
+                if(!notGPS){
+                  return ;
+                }
+                else {
+                  alert("GPS 信号已回复!");
+                  notGPS = false;
+                }
                 var ret = data.position;
                 if (positions.length >= 100) {
                     positions.pop();
@@ -141,6 +148,10 @@ apiready = function() {
                 }
             }); //返回定位信息
             AMap.event.addListener(geolocation, 'error', function() {
+                if(notGPS){
+                  return ;
+                }
+                notGPS = true;
                 alert("当前GPS信号不佳");
             }); //返回定位出错信息
             setInterval(function() {
