@@ -45,6 +45,7 @@ apiready = function() {
     var alerts = true;
     var checkrefresh = 0;
     var notGPS = false;
+    var showingmsg = 10;
 
     var startlbsPO = function(ms, ms2, userid) {
         // aMapLBS.configManager({
@@ -115,7 +116,7 @@ apiready = function() {
         mapObj = new AMap.Map('iCenter');
         mapObj.plugin('AMap.Geolocation', function() {
             geolocation = new AMap.Geolocation({
-                enableHighAccuracy: true, //是否使用高精度定位，默认:true
+                enableHighAccuracy: false, //是否使用高精度定位，默认:true
                 convert: true, //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
                 showButton: false, //显示定位按钮，默认：true
                 buttonOffset: new AMap.Pixel(10, 20), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
@@ -127,9 +128,9 @@ apiready = function() {
             mapObj.addControl(geolocation);
             AMap.event.addListener(geolocation, 'complete', function(data) {
                 if(notGPS){
-                  notGPS = false;
-                  alert("当前GPS信号已恢复");
+                    notGPS = false;
                 }
+                showingmsg = 5;
                 var ret = data.position;
                 if (positions.length >= 100) {
                     positions.pop();
@@ -148,8 +149,14 @@ apiready = function() {
                 if(notGPS){
                   return ;
                 }
+                if(showingmsg == 10){
+                  alert("当前GPS信号不佳");
+                  showingmsg = 0;
+                }
+                else {
+                  showingmsg ++;
+                }
                 notGPS = true;
-                alert("当前GPS信号不佳");
             }); //返回定位出错信息
             setInterval(function() {
                 geolocation.getCurrentPosition(function(status, result) {
