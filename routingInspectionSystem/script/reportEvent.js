@@ -14,28 +14,45 @@ apiready = function(){
 		var position = {};
 		var hasGot = false;
 		var getLocalPosition = function(func){
-			api.addEventListener({
-			    name: 'refreshmap'
-			}, function(ret, err){
-					if(hasGot){
-						return false;
-					}
-					if(err){
-						// alert(JSON.stringify(err));
-						return false;
-					}
-					var positions = $api.getStorage('position');
-					positions = positions ? JSON.parse(positions) : "";
-					if(positions && positions.length > 0){
-						position.lat = positions[0][1];
-						position.lon = positions[0][0];
-						func && func(position);
-						hasGot = true;
-						api.sendEvent({
-							name: 'hasGetPosition',
-						});
-					}
+			var data = api.getGlobalData({
+					key: 'currentPosition'
 			});
+			if(data && JSON.parse(data).length > 0){
+				var positions = JSON.parse(data);
+				if(positions && positions.length > 0){
+					position.lat = positions[0][1];
+					position.lon = positions[0][0];
+					func && func(position);
+					hasGot = true;
+					api.sendEvent({
+						name: 'hasGetPosition',
+					});
+				}
+			}
+			else {
+				api.addEventListener({
+				    name: 'refreshmap'
+				}, function(ret, err){
+						if(hasGot){
+							return false;
+						}
+						if(err){
+							// alert(JSON.stringify(err));
+							return false;
+						}
+						var positions = $api.getStorage('position');
+						positions = positions ? JSON.parse(positions) : "";
+						if(positions && positions.length > 0){
+							position.lat = positions[0][1];
+							position.lon = positions[0][0];
+							func && func(position);
+							hasGot = true;
+							api.sendEvent({
+								name: 'hasGetPosition',
+							});
+						}
+				});
+			}
 		}
 
 		//绘制问题类型选择
