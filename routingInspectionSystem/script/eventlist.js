@@ -435,7 +435,6 @@ apiready = function() {
                         $api.byId('blackgroundsbody').setAttribute("style", "display:none;");
                     }
                 } else {
-                    alert(JSON.stringify(err));
                     UICalendar.close();
                     $api.byId('blackgroundsbody').setAttribute("style", "display:none;");
                 }
@@ -485,7 +484,6 @@ apiready = function() {
                         $api.byId('blackgroundsbody').setAttribute("style", "display:none;");
                     }
                 } else {
-                    alert(JSON.stringify(err));
                     UICalendar.close();
                     $api.byId('blackgroundsbody').setAttribute("style", "display:none;");
                 }
@@ -535,7 +533,6 @@ apiready = function() {
                         $api.byId('blackgroundsbody').setAttribute("style", "display:none;");
                     }
                 } else {
-                    alert(JSON.stringify(err));
                     UICalendar.close();
                     $api.byId('blackgroundsbody').setAttribute("style", "display:none;");
                 }
@@ -585,7 +582,6 @@ apiready = function() {
                         $api.byId('blackgroundsbody').setAttribute("style", "display:none;");
                     }
                 } else {
-                    alert(JSON.stringify(err));
                     UICalendar.close();
                     $api.byId('blackgroundsbody').setAttribute("style", "display:none;");
                 }
@@ -888,10 +884,6 @@ apiready = function() {
         var myname = myrequest ? info.user.userid : "";
         if (myname && checkmine != myname) {
             checkfinal = false;
-        }
-        else {
-            alert(checkmine);
-            alert(info.user.userid);
         }
         if (!checkfinal) {
             list.setAttribute("hidden", "hidden");
