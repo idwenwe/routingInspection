@@ -573,14 +573,18 @@ apiready = function(){
 			 function(ret){
 				 if(!ret.result){
 					 //delete
-					 alert(JSON.stringify(arguments));
-					 requestMark(val);
+					 alert("requestMark success");
+					 alert(ret);
+					 alert(JSON.stringify(ret));
+					 requestMark(val,files);
 				 }
 			 },
 			 function(ret,err){
 				 //delete
-				 alert(JSON.stringify(arguments));
-				 requestMark(val);
+				 alert("requestMask error");
+				 alert(ret);
+				 alert(JSON.stringify(ret));
+				 requestMark(val,files);
 			 }
 			);
 		}
