@@ -1,7 +1,7 @@
 apiready = function(){
 
 		var info = api.pageParam.info;
-    	var history = info.history;
+    var history = info.history;
 		var visit = info.start;
 		var taskData = info.taskdata;
 		var leader = taskData.userid;
@@ -429,7 +429,8 @@ apiready = function(){
 							// 	p.rele && p.rele.setColors("red");
 							// }
 						}
-						else {
+						else if(p.marker && p.type == 4){
+							p.getToPosition = true;
 							// if(p.scanner){
 							// 	if(p.ele){
 							// 		p.ele.setIcon("../icon/ins-g.png");
@@ -572,16 +573,10 @@ apiready = function(){
 			 obj,
 			 function(ret){
 				 if(!ret.result){
-					 if(files){
-						 alert(JSON.stringify(ret));
-					 }
 					 requestMark(val,files);
 				 }
 			 },
 			 function(ret,err){
-				 if(files){
-					 alert(JSON.stringify(ret));
-				 }
 				 requestMark(val,files);
 			 }
 			);
@@ -739,6 +734,10 @@ apiready = function(){
 			return $api.getStorage(key);
 		}
 
+		var removePoints = function(key){
+			return $api.rmStorage(key);
+		}
+
 		var reduce = 0;
 		var easyMark = function(datas){
 			reduce = 0;
@@ -764,8 +763,7 @@ apiready = function(){
 	        if (ret) {
 	            if(ret.eventType == "success"){
 								FNScanner.closeView();
-								//delete
-								// requestInstrument(ret.content);
+								requestInstrument(ret.content);
 	            }
 	        } else {
 	            alert(JSON.stringify(err));
@@ -780,8 +778,11 @@ apiready = function(){
 					null,function(ret, err){
 							if(ret.result){
 								info.instrumentinfo = ret.data;
-								instrumentsignIn(id);
-								animationStart(function(){}, "instrumentinfo", "../html/instrumentinfo.html", info, true);
+
+								var bool = instrumentsignIn(id);
+								if(bool){
+									animationStart(function(){}, "instrumentinfo", "../html/instrumentinfo.html", info, true);
+								}
 							}
 							else {
 								alert("未获取到当前的设备信息")
@@ -798,6 +799,10 @@ apiready = function(){
 				}
 				else {
 					if(p.id == id){
+						if(!p.getToPosition){
+							alert("请尽量靠近设备所在地。");
+							return false;
+						}
 						if(p.photo){
 							getPicture(function(ret){
 								p.scanner = true;
@@ -820,6 +825,7 @@ apiready = function(){
 					else {
 						continue;
 					}
+					return true;
 				}
 			}
 		}
