@@ -482,8 +482,6 @@ apiready = function(){
 
 		var pointlist = [];
 		var exchangeForData = function(data, check){
-			//delete
-			alert(JSON.stringify(data));
 			if(check){
 				if(data.length == 0){
 					alert("未录入任何打卡点数据")
@@ -575,13 +573,13 @@ apiready = function(){
 			 function(ret){
 				 if(!ret.result){
 					 //delete
-					 alert(JSON.stringify(ret));
+					 alert(JSON.stringify(arguments));
 					 requestMark(val);
 				 }
 			 },
 			 function(ret,err){
 				 //delete
-				 alert(JSON.stringify(ret));
+				 alert(JSON.stringify(arguments));
 				 requestMark(val);
 			 }
 			);
