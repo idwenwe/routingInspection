@@ -482,6 +482,8 @@ apiready = function(){
 
 		var pointlist = [];
 		var exchangeForData = function(data, check){
+			//delete
+			alert(JSON.stringify(data));
 			if(check){
 				if(data.length == 0){
 					alert("未录入任何打卡点数据")
@@ -567,17 +569,19 @@ apiready = function(){
 			}
 			if(files){
 				obj.files = files;
-				//TODO：
-				alert(JSON.stringify(obj));
 			}
 			connectToService(commonURL + "?action=taskposition",
 			 obj,
 			 function(ret){
 				 if(!ret.result){
+					 //delete
+					 alert(JSON.stringify(ret));
 					 requestMark(val);
 				 }
 			 },
 			 function(ret,err){
+				 //delete
+				 alert(JSON.stringify(ret));
 				 requestMark(val);
 			 }
 			);
@@ -796,11 +800,12 @@ apiready = function(){
 						if(p.photo){
 							getPicture(function(ret){
 								p.scanner = true;
+									//delete
+									alert(JSON.stringify);
 									if(p.ele){
 										p.ele.setIcon("../icon/ins-g.png");
 									}
 									p.rele && p.rele.setColors("green");
-									alert(ret.data);
 									requestMark({"userid": info.user.userid, "taskid": info.taskid, "markerid":p.id, "index":0, "lat":p.point[1], "lon":p.point[0]}, {"photo": ret.data});
 							});
 						}
