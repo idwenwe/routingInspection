@@ -560,11 +560,16 @@ apiready = function(){
 		}
 
 		//上报打卡成功的点或者路段内容
-		var requestMark = function(val){
+		var requestMark = function(val, files){
+			var obj = {};
+			if(val){
+				obj.values = val;
+			}
+			if(files){
+				obj.files = files;
+			}
 			connectToService( commonURL + "?action=taskposition",
-			 {
-					 values: val
-			 },
+			 obj,
 			 function(ret){
 				 if(!ret.result){
 					 requestMark(val);
@@ -787,13 +792,13 @@ apiready = function(){
 				else {
 					if(p.id == id){
 						if(p.photo){
-							getPicture(function(){
+							getPicture(function(ret){
 								p.scanner = true;
 									if(p.ele){
 										p.ele.setIcon("../icon/ins-g.png");
 									}
 									p.rele && p.rele.setColors("green");
-									requestMark({"userid": info.user.userid, "taskid": info.taskid, "markerid":p.id, "index":0, "lat":p.point[1], "lon":p.point[0]});
+									requestMark({"userid": info.user.userid, "taskid": info.taskid, "markerid":p.id, "index":0, "lat":p.point[1], "lon":p.point[0]}, {"files": ret.data});
 							});
 						}
 						else {
