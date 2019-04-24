@@ -572,10 +572,16 @@ apiready = function(){
 			 obj,
 			 function(ret){
 				 if(!ret.result){
+					 if(files){
+						 alert(JSON.stringify(ret));
+					 }
 					 requestMark(val,files);
 				 }
 			 },
 			 function(ret,err){
+				 if(files){
+					 alert(JSON.stringify(ret));
+				 }
 				 requestMark(val,files);
 			 }
 			);
@@ -758,7 +764,8 @@ apiready = function(){
 	        if (ret) {
 	            if(ret.eventType == "success"){
 								FNScanner.closeView();
-								requestInstrument(ret.content);
+								//delete
+								// requestInstrument(ret.content);
 	            }
 	        } else {
 	            alert(JSON.stringify(err));
