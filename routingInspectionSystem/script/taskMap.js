@@ -568,6 +568,7 @@ apiready = function(){
 			if(files){
 				obj.files = files;
 			}
+			alert(JSON.stringify(obj));
 			connectToService( commonURL + "?action=taskposition",
 			 obj,
 			 function(ret){
