@@ -568,7 +568,6 @@ apiready = function(){
 			if(files){
 				obj.files = files;
 			}
-			alert(JSON.stringify(obj));
 			connectToService( commonURL + "?action=taskposition",
 			 obj,
 			 function(ret){
@@ -799,7 +798,7 @@ apiready = function(){
 										p.ele.setIcon("../icon/ins-g.png");
 									}
 									p.rele && p.rele.setColors("green");
-									requestMark({"userid": info.user.userid, "taskid": info.taskid, "markerid":p.id, "index":0, "lat":p.point[1], "lon":p.point[0]}, {"files": ret.data});
+									requestMark({"userid": info.user.userid, "taskid": info.taskid, "markerid":p.id, "index":0, "lat":p.point[1], "lon":p.point[0]}, {"photo": ret.data});
 							});
 						}
 						else {
