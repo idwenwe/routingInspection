@@ -572,18 +572,10 @@ apiready = function(){
 			 obj,
 			 function(ret){
 				 if(!ret.result){
-					 //delete
-					 alert("requestMark success");
-					 alert(ret);
-					 alert(JSON.stringify(ret));
 					 requestMark(val,files);
 				 }
 			 },
 			 function(ret,err){
-				 //delete
-				 alert("requestMask error");
-				 alert(ret);
-				 alert(JSON.stringify(ret));
 				 requestMark(val,files);
 			 }
 			);
@@ -802,8 +794,6 @@ apiready = function(){
 						if(p.photo){
 							getPicture(function(ret){
 								p.scanner = true;
-									//delete
-									alert(JSON.stringify);
 									if(p.ele){
 										p.ele.setIcon("../icon/ins-g.png");
 									}
